@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"> 
+
+    <h:head>
+        <title>Manutenção de Usuários</title>        
+    </h:head>
+
+    <h:form  id="formTabela" enctype="multipart/form-data">
+
+        <p:growl id="msg" life="3000"/>
+        <p:dataTable id="tabela"
+                     var="aux" 
+                     value="#{usuarioControle.usuarios}">
+
+            <p:column headerText="Nome">
+                <h:outputText 
+                    value="#{aux.nome}" />
+            </p:column>
+            <p:column headerText="Email">
+                <h:outputText 
+                    value="#{aux.email}" />
+            </p:column>
+             <p:column headerText="Senha">
+                <h:outputText 
+                    value="#{aux.senha}" />
+            </p:column>
+             <p:column headerText="TipoUsuario">
+                <h:outputText 
+                    value="#{aux.tipoUsuario}" />
+            </p:column>
+             <p:column headerText="Classificação">
+                <h:outputText 
+                    value="#{aux.classificacao.descricao} / #{aux.classificacao.ordem}" />
+            </p:column>
+            
+            <p:column headerText="Opções" style="width: 100px">
+                <p:commandButton icon="ui-icon-pencil" 
+                                 title="Clique aqui para alterar um registro"
+                                 oncomplete="PF('dialog').show()"
+                                 update=":formCadastro :formTabela"
+                                 action="#{usuarioControle.preparaAlterar()}">
+                    <p:resetInput target=":formCadastro:painel" />
+                    <f:setPropertyActionListener value="#{aux}" target="#{usuarioControle.usuario}" />
+                </p:commandButton>
+
+                <p:commandButton icon="ui-icon-cancel" 
+                                 title="Clique aqui para excluir um registro"
+                                 oncomplete="PF('excluir').show()">
+                    <f:setPropertyActionListener value="#{aux}" target="#{usuarioControle.usuario}" />
+                </p:commandButton>
+
+            </p:column>
+
+        </p:dataTable>
+
+        <p:commandButton value="Novo" 
+                         action="#{usuarioControle.preparaIncluir()}" 
+                         oncomplete="PF('dialog').show()" 
+                         update=":formCadastro">
+            <p:resetInput target=":formCadastro:painel" />
+        </p:commandButton>
+
+    </h:form>
+
+    <!--PAINEL PARA EXCLUIR-->
+    <p:confirmDialog id="confirmaExclusao" 
+                     message="Deseja realmente excluir o registro?"  
+                     header="Confirma a Exclusão?" 
+                     severity="alert" 
+                     widgetVar="excluir">
+        <h:form id="formPainelExcluir" enctype="multipart/form-data">
+            <p:commandButton value="Sim" 
+                             oncomplete="PF('excluir').hide()" 
+                             update=":formTabela :formCadastro"  
+                             actionListener="#{usuarioControle.excluir()}"/>  
+            <p:commandButton value="Não" oncomplete="PF('excluir').hide()"/> 
+        </h:form>
+    </p:confirmDialog>  
+
+    <!--PAINEL PARA CADASTRO-->
+    <p:dialog
+        header="Cadastro de Usuarios"
+        widgetVar="dialog"
+        resizable="false"
+        modal="true"
+        >
+        <h:form id="formCadastro" enctype="multipart/form-data">
+            <h:panelGrid columns="2" id="painel">
+                <p:outputLabel value="Nome:"
+                               for="nome"
+                               />
+                <p:inputText id="nome"
+                             required="true"
+                             title="Insira aqui o seu nome!"
+                             placeholder="Ex. João da Silva"
+                             requiredMessage="Campo nome obrigatório!"
+                             maxlength="30"
+                             value="#{usuarioControle.usuario.nome}"
+                             />
+                 <p:outputLabel value="Email:"
+                               for="email"
+                               />
+                    <p:inputText id="email"
+                             maxlength="80"
+                             required="true"
+                             placeholder="jose.silva@gmail.com"
+                             requiredMessage="Campo nome obrigatório!"
+                             value="#{usuarioControle.usuario.email}"/>
+                    
+                    <p:outputLabel value="Senha:"
+                               for="senha"
+                               />
+                   <p:inputText id="senha"
+                             maxlength="80"
+                             required="true"
+                             requiredMessage="Campo nome obrigatório!"
+                             value="#{usuarioControle.usuario.senha}">
+                       </p:inputText>
+                      <p:outputLabel value="TipoUsuario:"
+                               for="tipoUsuario"
+                               />
+                   <p:inputText id="tipoUsuario"
+                             maxlength="80"
+                             required="true"
+                             requiredMessage="Campo nome obrigatório!"
+                             value="#{usuarioControle.usuario.tipoUsuario}">
+                       </p:inputText>
+                    <p:outputLabel value="Classificacao:"
+                               for="classificacao"
+                               />
+                <p:selectOneMenu id="classificacao" 
+                                 value="#{usuarioControle.idClassificacao}" 
+                                 required="true"
+                                 
+                                 style="width:260px">
+                    <f:selectItem itemLabel="Selecione uma Classificacao" 
+                                  itemValue=""/>
+                    <f:selectItems value="#{classificacaoControle.classificacoes}"
+                                   var="auxCla" 
+                                   itemLabel="#{auxCla.descricao}" 
+                                   itemValue="#{auxCla.idClassificacao}" 
+
+                                   />
+    </p:selectOneMenu>
+    
+            </h:panelGrid>
+            <p:commandButton value="Salvar" 
+                             action="#{usuarioControle.salvar}" 
+                             update=":formTabela :formCadastro"
+                             oncomplete="validar(xhr,status,args,'dialog');" 
+                             icon="ui-icon-disk" 
+                             />
+            <p:commandButton value="Cancelar" icon="ui-icon-close" oncomplete="PF('dialog').hide()"/>
+
+        </h:form>
+
+    </p:dialog>
+
+    <script type="text/javascript">
+        function validar(xhr, status, args, dlg) {
+            if (args.validationFailed) {
+
+            } else {
+                PF(dlg).hide();
+            }
+        }
+
+    </script>
+
+</html>
