@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+        <title>Login</title>        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous"/>
+
+        <style>
+
+            @import url('https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i');
+            @import url('https://fonts.googleapis.com/css?family=Lato:400,900');
+
+
+            body {
+                background-image: url(rs/img/pexels-photo.jpg);
+                background-size: 100%;
+                background-repeat: no-repeat;
+                background-position: center
+
+            }
+
+            .merri {
+                font-family: 'Merriweather', serif;
+            }
+
+            .lato {
+                font-family: 'Lato', sans-serif;
+            }
+
+            .mast-head {
+                margin-top: 20px;
+            }
+
+            .wa-log-form {
+                margin-top: 60px;                
+                padding: 50px;
+                border-radius: 10px;
+                background-color: #404040;
+            }
+
+            .wa-btn-c {
+                margin: 20px;                
+            }
+            
+            .wa-btn {
+                font-weight: 700;
+                font-size: 1.2em;
+            }
+            
+            .wa-label {
+                color: white;
+                font-weight: 700;
+                font-size: 1.5em;
+            }
+            
+            .wa-message {
+                color: #dd4444;
+                font-size: 0.8em;
+                
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="row justify-content-center mast-head">
+                <img src="rs/img/logo-v1.png" height="100px;"/>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <h:form styleClass="wa-log-form col-6">    
+                    <div class="form-group">
+                        <label class="col-form-label lato wa-label" for="user">Insira seu email</label>
+                        <br/>
+                        <h:inputText id="user" value="#{usuarioControle.usuario.email}" required="true" requiredMessage="Insira um email válido!" styleClass="form-control"/>           
+                        <h:message styleClass="merri wa-message" for="user"/>
+                        <br/>
+                        <label class="col-form-label lato wa-label" for="pass">Insira sua senha</label>
+                        <br/>
+                        <h:inputSecret  id="pass" value="#{usuarioControle.usuario.senha}" required="true" requiredMessage="Insira uma senha válida!" styleClass="form-control"/>
+                        <h:message styleClass="merri wa-message" for="user"/>
+                        <br/>
+                        <div class="container">
+                            <div class="row justify-content-center wa-btn-c">
+                                <h:commandButton type="submit" value="Login" action="#{usuarioControle.login()}" styleClass="btn btn-primary col-12 lato wa-btn">
+                                    <f:ajax render="@form"/>    
+                                </h:commandButton>
+                            </div>
+                        </div>                    
+                    </div>
+                </h:form>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    </h:body>
+</html>

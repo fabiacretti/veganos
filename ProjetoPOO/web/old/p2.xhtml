@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Usuário</title>
+         <link rel="stylesheet" href="css/p2.css"/>
+    </h:head>
+    <h:body>
+        <h1>PÁGINA DA USUÁRIO</h1>
+        PÁGINA PRINCIPAL DO USUÁRIO LOGADO
+        <br />
+        <h:form>
+            <h:commandLink value="sair" action="#{jogadorControle.doLogout()}"/>
+            <h1>JOGOS DISPONIVEIS:</h1>
+            <p:dataTable var="aux" value="#{jogoControle.jogosDisponiveis()}">
+                <p:column headerText="Id_Jogo">
+                    <h:outputText value="#{aux.id_Jogo}" />
+                </p:column>
+
+                <p:column headerText="Data">
+                    <h:outputText value="#{aux.date}" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+
+
