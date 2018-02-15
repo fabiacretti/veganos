@@ -19,13 +19,25 @@
                 background-image: url(../rs/img/pexels-photo.jpg);
                 background-size: cover;
             }
-            
+
             .black {
                 color: #404040;
             }
-            
+
             .white {
                 color: #fff;
+            }
+
+            .wa-input {
+                min-width: 400px;
+                margin-bottom: 20px;                
+            }
+            
+            .wa-btn {
+                margin-top: 20px;
+                padding: 10px;
+                font-size: 1.6em;
+                font-weight: bold;
             }
         </style>
     </h:head>
@@ -35,26 +47,28 @@
             <header class="masthead mb-auto">
                 <div class="inner">
                     <h3 class="masthead-brand"><img class="mb-4" src="../rs/img/logo-notype-v1.png" alt="" width="50"/></h3>
-                    <nav class="nav nav-masthead justify-content-center">
-                        <a class="nav-link active" href="#">Home</a>
+                    <nav class="nav nav-masthead justify-content-center">                       
                         <a class="nav-link white" href="login.xhtml">Login</a>
                         <a class="nav-link white" href="#">Cadastre-se</a>
                     </nav>
-                    
+
                 </div>
             </header>
 
             <main role="main" class="inner cover">
-                <h1 class="cover-heading black">Nome de sistema vegano com V</h1>
-                <p class="lead black">Descubra, analise e avalie produtos veganos</p>
-                <p class="lead black">
-                    <a href="#" class="btn btn-lg btn-success">Saiba mais</a>
-                </p>
+                <h:form>
+                    <h1 class="cover-heading black">Veganizando</h1>
+                    <p class="lead black">Descubra, analise e avalie produtos veganos</p>
+                    <div class="input-group input-group-lg">
+                        <h:inputText styleClass="form-control wa-input" a:placeholder="Comece aqui"/>                        
+                        <h:commandButton styleClass="btn btn-block btn-success wa-btn" value="Pesquisar"/>
+                    </div>
+                </h:form>
             </main>
 
             <footer class="mastfoot mt-auto">
                 <div class="inner">
-                    <p class="white">Copyright 2018 by @wolferlamadeus</p>
+                    <p class="white">Copyright 2018 by @veganizando</p>
                 </div>
             </footer>
         </div>
